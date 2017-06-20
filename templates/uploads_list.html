@@ -6,10 +6,15 @@
 
 {% block body %}
 <h3>File List</h3>
+{% if filelist %}
 <ul>
     {% for filename in filelist %}
     <li><a href="{{ filename }}">{{ filename }}</a></li>
     {% endfor %}
 </ul>
+{% else %}
+<p>No files Exist</p>
+
+{% endif %}
 
 {% endblock %}

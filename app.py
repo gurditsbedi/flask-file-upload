@@ -23,7 +23,6 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
@@ -34,12 +33,13 @@ def upload_file():
                 os.makedirs(UPLOAD_FOLDER)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', filename=filename))
-    # <p>{% get_flash_messages() %}</p>
     return render_template('file_upload.html')
 
 
 @app.route('/u/')
 def uploads():
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
     filelist = os.listdir(UPLOAD_FOLDER)
     print(filelist)
     return render_template('uploads_list.html', filelist=filelist)
